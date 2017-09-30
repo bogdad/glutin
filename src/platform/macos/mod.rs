@@ -49,10 +49,6 @@ impl Context {
         let transparent = window_builder.window.transparent;
         let window = try!(window_builder.build(events_loop));
 
-        if gl_attr.sharing.is_some() {
-            unimplemented!()
-        }
-
         match gl_attr.robustness {
             Robustness::RobustNoResetNotification |
             Robustness::RobustLoseContextOnReset => {
@@ -72,9 +68,13 @@ impl Context {
                 Some(pf) => pf,
             };
 
-            // TODO: Add context sharing
+            let shared_id = match gl_attr.sharing {
+                Some(&Context{gl: IdRef(id), ..}) => id,
+                None => nil
+            };
+
             let gl_context = IdRef::new(NSOpenGLContext::alloc(nil)
-                .initWithFormat_shareContext_(*pixel_format, nil));
+                .initWithFormat_shareContext_(*pixel_format, shared_id));
             let gl_context = match gl_context.non_nil() {
                 Some(gl_context) => gl_context,
                 None => return Err(CreationError::NotSupported),
