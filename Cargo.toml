@@ -1,6 +1,6 @@
 [package]
 name = "glutin"
-version = "0.10.1"
+version = "0.11.1"
 authors = ["The glutin contributors, Pierre Krieger <pierre.krieger1708@gmail.com>"]
 description = "Cross-platform OpenGL context provider."
 keywords = ["windowing", "opengl"]
@@ -16,7 +16,6 @@ libc = "0.2"
 shared_library = "0.1.0"
 
 [dependencies.winit]
-version = "0.8.2"
 git = "https://github.com/bogdad/winit"
 branch = "glium_fullscreen_leak"
 
