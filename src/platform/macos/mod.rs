@@ -68,13 +68,13 @@ impl Context {
                 Some(pf) => pf,
             };
 
-            let shared_id = match gl_attr.sharing {
+            /*let shared_id = match gl_attr.sharing {
                 Some(&Context{gl: IdRef(id), ..}) => id,
                 None => nil
-            };
+            };*/
 
             let gl_context = IdRef::new(NSOpenGLContext::alloc(nil)
-                .initWithFormat_shareContext_(*pixel_format, shared_id));
+                .initWithFormat_shareContext_(*pixel_format, nil));
             let gl_context = match gl_context.non_nil() {
                 Some(gl_context) => gl_context,
                 None => return Err(CreationError::NotSupported),
